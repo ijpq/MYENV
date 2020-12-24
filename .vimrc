@@ -16,6 +16,7 @@ set display=truncate
 set fileencodings=ucs-bom,utf-8,default,latin1
 set helplang=en
 set history=200
+set hlsearch
 set incsearch
 set langnoremap
 set nolangremap
