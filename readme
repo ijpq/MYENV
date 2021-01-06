@@ -3,5 +3,6 @@
 2.you may execute command 
 `cat ./.vimrc >> $(:scriptnames)`
 
+3.this vim setting is in place of [repo](https://github.com/amix/vimrc):vimrc
 
 
