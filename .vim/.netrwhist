@@ -1,0 +1,7 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =5
+let g:netrw_dirhist_1='/home/tangke/video3/experiments/human_quality/baseline/config'
+let g:netrw_dirhist_2='/home/tangke/video3/experiments/human_quality/baseline/config/baseline.cloud.rgb.128x128.d'
+let g:netrw_dirhist_3='/home/tangke/video3/experiments/human_quality/baseline/config'
+let g:netrw_dirhist_4='/home/tangke/video3/experiments/human_quality/baseline/config/baseline.cloud.rgb.128x128.d'
+let g:netrw_dirhist_5='/home/tangke/video3/experiments/human_quality/baseline/config/baseline.cloud.rgb.128x128.c.1'
