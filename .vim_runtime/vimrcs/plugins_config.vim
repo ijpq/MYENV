@@ -8,14 +8,27 @@
 """"""""""""""""""""""""""""""
 " => Load pathogen paths
 """"""""""""""""""""""""""""""
-let s:vim_runtime = expand('<sfile>:p:h')."/.."
-call pathogen#infect(s:vim_runtime.'/sources_forked/{}')
-call pathogen#infect(s:vim_runtime.'/sources_non_forked/{}')
-call pathogen#infect(s:vim_runtime.'/my_plugins/{}')
-call pathogen#helptags()
+" let s:vim_runtime = expand('<sfile>:p:h')."/.."
+" call pathogen#infect(s:vim_runtime.'/sources_forked/{}')
+" call pathogen#infect(s:vim_runtime.'/sources_non_forked/{}')
+" call pathogen#infect(s:vim_runtime.'/my_plugins/{}')
+" call pathogen#helptags()
 
-syntax on
-" filetype plugin indent on
+call plug#begin('~/.vim_runtime/my_plugins')
+Plug 'scrooloose/nerdtree', {'on':'NERDTreeToggle'}
+Plug 'chun-yang/auto-pairs'
+Plug 'mileszs/ack.vim'
+Plug 'universal-ctags/ctags'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'itchyny/lightline.vim'
+Plug 'skywind3000/asyncrun.vim'
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'dense-analysis/ale'
+Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'vim-python/python-syntax'
+Plug 'valloric/youcompleteme'
+Plug 'nathanaelkane/vim-indent-guides'
+call plug#end()
 
 """"""""""""""""""""""""""""""
 " => bufExplorer plugin
@@ -87,7 +100,7 @@ syntax on
 let g:NERDTreeWinPos = "right"
 let NERDTreeShowHidden=0
 let NERDTreeIgnore = ['\.pyc$', '__pycache__']
-let NERDTreeWinSize=60
+let g:NERDTreeWinSize=45
 map <leader>nn :NERDTreeToggle<cr>
 map <leader>nb :NERDTreeFromBookmark<Space>
 map <leader>nf :NERDTreeFind<cr>

@@ -387,6 +387,3 @@ endfunction
 """"
 set cc=80
 :inoremap <C-c> <C-[>
-inoremap empd<C-c> import pdb; pdb.set_trace()<C-c>
-set number
-set smartindent

@@ -88,20 +88,12 @@ endtry
 " vnoremap $e <esc>`>a`<esc>`<i`<esc>
 
 " Map auto complete of (, ", ', [
-" inoremap $1 ()<esc>i
-" inoremap $2 []<esc>i
-" inoremap $3 {}<esc>i
-" inoremap $4 {<esc>o}<esc>O
-" inoremap $q ''<esc>i
-" inoremap $e ""<esc>i
-imap { {}
-imap [ []
-imap ( ()
-imap " ""
-imap ' ''
-imap{ {}<ESC>i<CR><ESC>O
-imap[ []<ESC>i<CR><ESC>O
-imap( ()<ESC>i<CR><ESC>O
+inoremap $1 ()<esc>i
+inoremap $2 []<esc>i
+inoremap $3 {}<esc>i
+inoremap $4 {<esc>o}<esc>O
+inoremap $q ''<esc>i
+inoremap $e ""<esc>i
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -113,7 +105,7 @@ imap( ()<ESC>i<CR><ESC>O
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Omni complete functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
