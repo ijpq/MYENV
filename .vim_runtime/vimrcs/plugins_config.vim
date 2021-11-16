@@ -15,20 +15,20 @@
 " call pathogen#helptags()
 
 call plug#begin('~/.vim_runtime/my_plugins')
-Plug 'scrooloose/nerdtree', {'on':'NERDTreeToggle'}
-Plug 'chun-yang/auto-pairs'
-Plug 'mileszs/ack.vim'
-Plug 'universal-ctags/ctags'
-Plug 'nathanaelkane/vim-indent-guides'
-Plug 'itchyny/lightline.vim'
-Plug 'skywind3000/asyncrun.vim'
-Plug 'ludovicchabant/vim-gutentags'
-Plug 'dense-analysis/ale'
-Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'vim-python/python-syntax'
-Plug 'valloric/youcompleteme'
-Plug 'nathanaelkane/vim-indent-guides'
-call plug#end()
+Plug 'https://github.com/jiangmiao/auto-pairs.git'
+Plug 'https://github.com/mileszs/ack.vim.git'
+Plug 'https://github.com/universal-ctags/ctags.git'
+Plug 'https://github.com/nathanaelkane/vim-indent-guides.git'
+Plug 'https://github.com/itchyny/lightline.vim.git'
+Plug 'https://github.com/skywind3000/asyncrun.vim.git'
+Plug 'https://github.com/ludovicchabant/vim-gutentags.git'
+Plug 'https://github.com/dense-analysis/ale.git'
+Plug 'https://github.com/octol/vim-cpp-enhanced-highlight.git'
+Plug 'https://github.com/vim-python/python-syntax.git'
+Plug 'https://github.com/ycm-core/YouCompleteMe.git'
+Plug 'https://github.com/preservim/nerdtree.git', {'on':'NERDTreeToggle'}
+Plug 'ojroques/vim-oscyank'
+Plug 'maximbaz/lightline-ale'
 
 """"""""""""""""""""""""""""""
 " => bufExplorer plugin
@@ -97,7 +97,7 @@ call plug#end()
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Nerd Tree
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:NERDTreeWinPos = "right"
+let g:NERDTreeWinPos = "left"
 let NERDTreeShowHidden=0
 let NERDTreeIgnore = ['\.pyc$', '__pycache__']
 let g:NERDTreeWinSize=45
@@ -133,26 +133,51 @@ map <leader>nf :NERDTreeFind<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => lightline
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:lightline = {
-      \ 'colorscheme': 'one',
-      \ 'active': {
-      \   'left': [ ['mode', 'paste'], 
-      \             ['fugitive', 'readonly', 'absolutepath', 'modified'] ],
-      \   'right': [ [ 'lineinfo' ], ['percent'] ]
-      \ },
-      \ 'component': {
-      \   'readonly': '%{&filetype=="help"?"":&readonly?"🔒":""}',
-      \   'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}',
-      \   'fugitive': '%{exists("*FugitiveHead")?FugitiveHead():""}'
-      \ },
-      \ 'component_visible_condition': {
-      \   'readonly': '(&filetype!="help"&& &readonly)',
-      \   'modified': '(&filetype!="help"&&(&modified||!&modifiable))',
-      \   'fugitive': '(exists("*FugitiveHead") && ""!=FugitiveHead())'
-      \ },
-      \ 'separator': { 'left': ' ', 'right': ' ' },
-      \ 'subseparator': { 'left': ' ', 'right': ' ' }
+"let g:lightline = {
+"      \ 'colorscheme': 'one',
+"      \ 'active': {
+"      \   'left': [ ['mode', 'paste'], 
+"      \             ['fugitive', 'readonly', 'absolutepath', 'modified'] ],
+"      \   'right': [ [ 'lineinfo' ], ['percent'] ]
+"      \ },
+"      \ 'component': {
+"      \   'readonly': '%{&filetype=="help"?"":&readonly?"🔒":""}',
+"      \   'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}',
+"      \   'fugitive': '%{exists("*FugitiveHead")?FugitiveHead():""}'
+"      \ },
+"      \ 'component_visible_condition': {
+"      \   'readonly': '(&filetype!="help"&& &readonly)',
+"      \   'modified': '(&filetype!="help"&&(&modified||!&modifiable))',
+"      \   'fugitive': '(exists("*FugitiveHead") && ""!=FugitiveHead())'
+"      \ },
+"      \ 'separator': { 'left': ' ', 'right': ' ' },
+"      \ 'subseparator': { 'left': ' ', 'right': ' ' }
+"      \ }
+let g:lightline = {}
+
+let g:lightline.component_expand = {
+      \  'linter_checking': 'lightline#ale#checking',
+      \  'linter_infos': 'lightline#ale#infos',
+      \  'linter_warnings': 'lightline#ale#warnings',
+      \  'linter_errors': 'lightline#ale#errors',
+      \  'linter_ok': 'lightline#ale#ok',
       \ }
+let g:lightline.component_type = {
+      \     'linter_checking': 'right',
+      \     'linter_infos': 'right',
+      \     'linter_warnings': 'warning',
+      \     'linter_errors': 'error',
+      \     'linter_ok': 'right',
+      \ }
+let g:lightline.active = { 'right': [[ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok' ]] }
+let g:lightline.active = {
+            \ 'right': [ [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok' ],
+            \            [ 'lineinfo' ],
+	    \            [ 'percent' ],
+	    \            [ 'fileformat', 'fileencoding', 'filetype'] ], 
+        \   'left': [['mode', 'paste'], ['absolutepath']]}
+
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Vimroom
@@ -166,11 +191,11 @@ let g:lightline = {
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Ale (syntax checker and linter)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" let g:ale_linters = {
-" \   'javascript': ['eslint'],
-" \   'python': ['flake8'],
-" \   'go': ['go', 'golint', 'errcheck']
-" \}
+let g:ale_linters = {
+\   'javascript': ['eslint'],
+\   'python': ['flake8', 'mypy'],
+\   'go': ['go', 'golint', 'errcheck']
+\}
 " 
 " nmap <silent> <leader>a <Plug>(ale_next_wrap)
 " 
@@ -181,6 +206,25 @@ let g:lightline = {
 " let g:ale_lint_on_text_changed = 'never'
 " let g:ale_lint_on_enter = 0
 
+"始终开启标志列
+let g:ale_sign_column_always = 1
+let g:ale_set_highlights = 0
+"自定义error和warning图标
+let g:ale_sign_error = '✗'
+let g:ale_sign_warning = '⚡'
+"在vim自带的状态栏中整合ale
+let g:ale_statusline_format = ['✗ %d', '⚡ %d', '✔ OK']
+"显示Linter名称,出错或警告等相关信息
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+"普通模式下，sp前往上一个错误或警告，sn前往下一个错误或警告
+nmap sp <Plug>(ale_previous_wrap)
+nmap sn <Plug>(ale_next_wrap)
+"<Leader>s触发/关闭语法检查
+nmap <Leader>s :ALEToggle<CR>
+"<Leader>d查看错误或警告的详细信息
+nmap <Leader>d :ALEDetail<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Git gutter (Git diff)
@@ -194,8 +238,17 @@ let g:lightline = {
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 
-
-
+"""
+"cpp-enhanced-highlight
+""""
+let g:cpp_class_scope_highlight = 1  
+let g:cpp_member_variable_highlight = 1  
+let g:cpp_concepts_highlight = 1  
+let g:cpp_experimental_simple_template_highlight = 1  
+"""
+"python-syntax
+""""
+let g:python_highlight_all = 1
 
 """""""""""""""""
 " ident guidelines 
@@ -205,3 +258,44 @@ let g:indent_guides_enable_on_vim_startup = 1
 """"
 " ack
 """"
+"""
+"ale
+""""
+let g:ale_linters_explicit = 1
+" let g:ale_completion_delay = 1
+let g:ale_echo_delay = 20
+let g:ale_lint_delay = 500
+let g:ale_echo_msg_format = '[%linter%] %code: %%s'
+let g:ale_lint_on_text_changed = 'normal'
+let g:ale_lint_on_insert_leave = 1
+let g:airline#extensions#ale#enabled = 1
+let g:ale_sign_column_always = 1
+let g:ale_c_gcc_options = '-Wall -O2 -std=c99'
+let g:ale_cpp_gcc_options = '-Wall -O2 -std=c++14'
+let g:ale_c_cppcheck_options = ''
+let g:ale_cpp_cppcheck_options = ''
+let g:ale_sign_error = '✗'
+let g:ale_sign_warning = '⚡'
+
+
+"""
+"YCM
+""""
+let g:ycm_add_preview_to_completeopt = 0
+let g:ycm_show_diagnostics_ui = 0
+let g:ycm_server_log_level = 'info'
+let g:ycm_min_num_identifier_candidate_chars = 2
+let g:ycm_collect_identifiers_from_comments_and_strings = 1
+let g:ycm_complete_in_strings=1
+let g:ycm_key_invoke_completion = '<c-z>'
+set completeopt=menu,menuone
+
+noremap <c-z> <NOP>
+
+let g:ycm_semantic_triggers =  {
+           \ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
+           \ 'cs,lua,javascript': ['re!\w{2}'],
+           \ }
+call plug#end()
+
+filetype plugin indent on

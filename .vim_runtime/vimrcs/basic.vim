@@ -140,7 +140,7 @@ if $COLORTERM == 'gnome-terminal'
 endif
 
 try
-    colorscheme mayansmoke
+    colorscheme 256_noir 
 catch
 endtry
 
@@ -387,3 +387,4 @@ endfunction
 """"
 set cc=80
 :inoremap <C-c> <C-[>
+set number
