@@ -29,6 +29,7 @@ Plug 'https://github.com/ycm-core/YouCompleteMe.git'
 Plug 'https://github.com/preservim/nerdtree.git', {'on':'NERDTreeToggle'}
 Plug 'ojroques/vim-oscyank'
 Plug 'maximbaz/lightline-ale'
+Plug 'jabirali/vim-tmux-yank'
 
 """"""""""""""""""""""""""""""
 " => bufExplorer plugin
