@@ -30,6 +30,7 @@ Plug 'https://github.com/preservim/nerdtree.git', {'on':'NERDTreeToggle'}
 Plug 'ojroques/vim-oscyank'
 Plug 'maximbaz/lightline-ale'
 Plug 'jabirali/vim-tmux-yank'
+Plug 'https://github.com/itchyny/vim-gitbranch.git'
 
 """"""""""""""""""""""""""""""
 " => bufExplorer plugin
