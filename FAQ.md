@@ -13,5 +13,18 @@
   
 ## vim 8.2
 
-//
+
+vim8.2 installation:
+```
+sudo add-apt-repository ppa:jonathonf/vim
+sudo apt update
+sudo apt install vim
+```
+
+> add-apt-repository command not found
+> ```
+> sudo apt update
+> sudo apt install software-properties-common
+> ```
+
 
