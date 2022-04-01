@@ -72,6 +72,8 @@ endif
 " => Twig section
 """"""""""""""""""""""""""""""
 autocmd BufRead *.twig set syntax=html filetype=html
+autocmd BufRead,BufNewFile *.cu set syntax=cpp filetype=cpp
+autocmd BufRead,BufNewFile *.cu_inl set syntax=cpp filetype=cpp
 
 
 """"""""""""""""""""""""""""""
