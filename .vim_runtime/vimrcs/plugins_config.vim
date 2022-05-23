@@ -283,10 +283,10 @@ let g:ale_sign_warning = '⚡'
 
 
 """
-gutentags
+"gutentags
 """
 " gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
-let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
+let g:gutentags_project_root = ['.root', '.svn', '.hg', '.project']
 
 " 所生成的数据文件的名称
 let g:gutentags_ctags_tagfile = '.tags'
@@ -306,14 +306,15 @@ if !isdirectory(s:vim_tags)
 endif
 
 """
-signify
+"signify
 """
 set signcolumn=yes
 
 """
-leaderF
+"leaderF
 """
-nmap <leader>p :LeaderfFunction! 
+nmap <leader>p :LeaderfFunction!
+let g:Lf_PreviewInPopup = 1
 
 """
 "YCM
