@@ -29,7 +29,7 @@ set guioptions-=L
 
 " Colorscheme
 set background=dark
-colorscheme 256_noir
+colorscheme codedark
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
