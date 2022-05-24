@@ -33,6 +33,7 @@ Plug 'jabirali/vim-tmux-yank'
 Plug 'https://github.com/itchyny/vim-gitbranch.git'
 Plug 'https://github.com/mhinz/vim-signify.git'
 Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
+Plug 'tomasiser/vim-code-dark'
 
 """"""""""""""""""""""""""""""
 " => bufExplorer plugin
