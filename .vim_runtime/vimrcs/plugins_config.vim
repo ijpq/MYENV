@@ -313,7 +313,7 @@ set signcolumn=yes
 """
 "leaderF
 """
-nmap <leader>p :LeaderfFunction!
+nmap <C-p> :LeaderfFunction!<CR>
 let g:Lf_PreviewInPopup = 1
 
 """
