@@ -306,6 +306,9 @@ if !isdirectory(s:vim_tags)
    silent! call mkdir(s:vim_tags, 'p')
 endif
 
+let $GTAGSLABEL = 'native-pygments'
+let $GTAGSCONF = '/home/tangke/.install/share/gtags/gtags.conf'
+
 """
 "signify
 """
@@ -327,6 +330,8 @@ let g:ycm_min_num_identifier_candidate_chars = 2
 let g:ycm_collect_identifiers_from_comments_and_strings = 1
 let g:ycm_complete_in_strings=1
 let g:ycm_key_invoke_completion = '<c-z>'
+let g:ycm_global_ycm_extra_conf = '${HOME}/.vim_runtime/my_plugins/YouCompleteMe/.ycm_extra_conf.py'
+let g:ycm_confirm_extra_conf = 0
 set completeopt=menu,menuone
 
 noremap <c-z> <NOP>

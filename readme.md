@@ -1,7 +1,9 @@
 .tmux.conf is TMUX config file
 
 
-`youcompleteme` vim plugins need extra setup
+.bashrc is a example env variables setting
 
-found solution from here.
-[FAQ](https://raw.githubusercontent.com/ijpq/MYENV/master/FAQ.md)
+`youcompleteme` vim plugins need extra setup. before that you need a vim8.2 build from source and so on, some info refer to .bashrc when multi user sys.
+IT IS REALLY RECOMMENDED TO READ SERIOUSLY README.MD IN `youcompleteme` repo to get a CORRECT setting.
+
+when multi user sys, you supposed to build any files with `--prefix=${HOME}/.install`, which install the binary and other files to you local user dir, such as cmake/gtags/vim...
