@@ -139,10 +139,6 @@ if $COLORTERM == 'gnome-terminal'
     set t_Co=256
 endif
 
-try
-    colorscheme 256_noir 
-catch
-endtry
 
 set background=dark
 

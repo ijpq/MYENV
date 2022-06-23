@@ -17,7 +17,6 @@
 call plug#begin('~/.vim_runtime/my_plugins')
 Plug 'https://github.com/jiangmiao/auto-pairs.git'
 Plug 'https://github.com/mileszs/ack.vim.git'
-Plug 'https://github.com/universal-ctags/ctags.git'
 Plug 'https://github.com/nathanaelkane/vim-indent-guides.git'
 Plug 'https://github.com/itchyny/lightline.vim.git'
 Plug 'https://github.com/skywind3000/asyncrun.vim.git'
@@ -34,6 +33,9 @@ Plug 'https://github.com/itchyny/vim-gitbranch.git'
 Plug 'https://github.com/mhinz/vim-signify.git'
 Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
 Plug 'tomasiser/vim-code-dark'
+Plug 'skywind3000/gutentags_plus'
+Plug 'skywind3000/vim-preview'
+Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next' }
 
 """"""""""""""""""""""""""""""
 " => bufExplorer plugin
@@ -61,20 +63,6 @@ Plug 'tomasiser/vim-code-dark'
 " nmap <C-n> <Plug>yankstack_substitute_newer_paste
 
 
-""""""""""""""""""""""""""""""
-" => CTRL-P
-""""""""""""""""""""""""""""""
-" let g:ctrlp_working_path_mode = 0
-" 
-" " Quickly find and open a file in the current working directory
-" let g:ctrlp_map = '<C-f>'
-" map <leader>j :CtrlP<cr>
-" 
-" " Quickly find and open a buffer
-" map <leader>b :CtrlPBuffer<cr>
-" 
-" let g:ctrlp_max_height = 20
-" let g:ctrlp_custom_ignore = 'node_modules\|^\.DS_Store\|^\.git\|^\.coffee'
 
 
 """"""""""""""""""""""""""""""
@@ -282,10 +270,13 @@ let g:ale_cpp_cppcheck_options = ''
 let g:ale_sign_error = '✗'
 let g:ale_sign_warning = '⚡'
 
-
 """
 "gutentags
 """
+" ctags related param
+" set tags=./.tags;,.tags
+
+let g:gutentags_define_advanced_commands = 1
 " gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
 let g:gutentags_project_root = ['.root', '.svn', '.hg', '.project']
 
@@ -293,22 +284,66 @@ let g:gutentags_project_root = ['.root', '.svn', '.hg', '.project']
 let g:gutentags_ctags_tagfile = '.tags'
 
 " 将自动生成的 tags 文件全部放入 ~/.cache/tags 目录中，避免污染工程目录
-let s:vim_tags = expand('~/.cache/tags')
+let s:vim_tags = expand("~/.cache/tags")
 let g:gutentags_cache_dir = s:vim_tags
 
-" 配置 ctags 的参数
+"配置 ctags 的参数
 let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
 let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
 let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+
+let g:gutentags_modules = []
+
+" ctags got some ERROR, so there comment it.
+" if executable('ctags')
+"     let g:gutentags_modules += ['ctags']
+" endif
+"
+if executable('gtags-cscope') && executable('gtags')
+    let g:gutentags_modules += ['gtags_cscope']
+endif
+let g:gutentags_ctags_extra_args = []
+let g:gutentags_ctags_extra_args += ['--extras=+q', '--output-format=e-ctags']
+let g:gutentags_auto_add_gtags_cscope = 1
+
+" let g:gutentags_ctags_exclude = ["*/MegBrain/third_party/*"]
 
 " 检测 ~/.cache/tags 不存在就新建
 if !isdirectory(s:vim_tags)
    silent! call mkdir(s:vim_tags, 'p')
 endif
 
-let $GTAGSLABEL = 'native-pygments'
+" if has("cscope")
+"     if executable('gtags-cscope') && executable('gtags')
+"         "禁用原GscopeFind按键映射
+"         let g:gutentags_plus_nomap = 1
+"         "Find this C symbol 查找C语言符号，即查找函数名、宏、枚举值等出现的地方
+"         nmap <C-\>s :GscopeFind s <C-R>=expand("<cword>")<CR><CR>
+"         "Find this difinition 查找函数、宏、枚举等定义的位置，类似ctags所提供的功能
+"         nmap <C-\>g :GscopeFind g <C-R>=expand("<cword>")<CR><CR>
+"         "Find functions called by this function 查找本函数调用的函数
+"         nmap <C-\>d :GscopeFind d <C-R>=expand("<cword>")<CR><CR>
+"         "Find functions calling this function 查找调用本函数的函数
+"         nmap <C-\>c :GscopeFind c <C-R>=expand("<cword>")<CR><CR>
+"         "Find this text string 查找指定的字符串
+"         nmap <C-\>t :GscopeFind t <C-R>=expand("<cword>")<CR><CR>
+"         "Find this egrep pattern 查找egrep模式，相当于egrep功能，但查找速度快多了
+"         nmap <C-\>e :GscopeFind e <C-R>=expand("<cword>")<CR><CR>
+"         "Find this file 查找并打开文件，类似vim的能
+"         nmap <C-\>f :GscopeFind f <C-R>=expand("<cfile>")<CR><CR>
+"         "Find files #including this file 查找包含本文件的文件
+"         nmap <C-\>i :GscopeFind i ^<C-R>=expand("<cfile>")<CR>$<CR>
+"     endif
+" endif
+
+let $GTAGSLABEL = 'native'
 let $GTAGSCONF = '/home/tangke/.install/share/gtags/gtags.conf'
 
+"""
+" gutentags-plus
+"""
+let g:gutentags_trace=0
+let g:gutentags_plus_switch=1
 """
 "signify
 """
@@ -317,8 +352,37 @@ set signcolumn=yes
 """
 "leaderF
 """
-nmap <C-p> :LeaderfFunction!<CR>
+let g:Lf_ShortcutF = '<C-P>'
+" nmap <C-p> :LeaderfFunction!<CR>
+let g:Lf_WidnowPosition = "popup"
 let g:Lf_PreviewInPopup = 1
+let g:Lf_GtagsAutoGenerate = 0
+" find reference, acc to gtags
+noremap <leader>fr :<C-U><C-R>=printf("Leaderf! gtags -r %s --auto-jump", expand("<cword>"))<CR><CR>
+" find defintion, acc to gtags
+noremap <leader>fd :<C-U><C-R>=printf("Leaderf! gtags -d %s --auto-jump", expand("<cword>"))<CR><CR>
+nmap <unique> <C-f> <Plug>LeaderfRgPrompt
+let g:Lf_ShowDevIcons = 0
+
+" let g:Lf_ShortcutF = '<c-p>'
+" noremap <c-n> :LeaderfMru<cr>
+noremap <leader>ll :LeaderfFunction!<cr>
+" noremap <m-n> :LeaderfBuffer<cr>
+" noremap <m-m> :LeaderfTag<cr>
+let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
+
+let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
+let g:Lf_WorkingDirectoryMode = 'Ac'
+let g:Lf_WindowHeight = 0.30
+let s:leaderfcache=expand('~/.vim/cache')
+if !isdirectory(s:leaderfcache)
+   silent! call mkdir(s:leaderfcache, 'p')
+endif
+let g:Lf_CacheDirectory = s:leaderfcache
+let g:Lf_ShowRelativePath = 0
+let g:Lf_HideHelp = 1
+let g:Lf_StlColorscheme = 'powerline'
+let g:Lf_PreviewResult = {'Function':0, 'BufTag':0}
 
 """
 "YCM
@@ -330,7 +394,7 @@ let g:ycm_min_num_identifier_candidate_chars = 2
 let g:ycm_collect_identifiers_from_comments_and_strings = 1
 let g:ycm_complete_in_strings=1
 let g:ycm_key_invoke_completion = '<c-z>'
-let g:ycm_global_ycm_extra_conf = '${HOME}/.vim_runtime/my_plugins/YouCompleteMe/.ycm_extra_conf.py'
+let g:ycm_global_ycm_extra_conf = expand("~/.vim_runtime/my_plugins/YouCompleteMe/.ycm_extra_conf.py")
 let g:ycm_confirm_extra_conf = 0
 set completeopt=menu,menuone
 
@@ -340,6 +404,37 @@ let g:ycm_semantic_triggers =  {
            \ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
            \ 'cs,lua,javascript': ['re!\w{2}'],
            \ }
+
+"""
+" vim preview
+"""
+autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
+autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<cr>
+
+" noremap <m-u> :PreviewScroll -1<cr>
+" noremap <m-d> :PreviewScroll +1<cr>
+" inoremap <m-u> <c-\><c-o>:PreviewScroll -1<cr>
+" inoremap <m-d> <c-\><c-o>:PreviewScroll +1<cr>
+
+"""""
+" LCN
+"
+"""""
+let g:LanguageClient_loadSettings = 1
+let g:LanguageClient_diagnosticsEnable = 0
+let g:LanguageClient_settingsPath = expand('~/.vim/languageclient.json')
+let g:LanguageClient_selectionUI = 'quickfix'
+let g:LanguageClient_diagnosticsList = v:null
+let g:LanguageClient_hoverPreview = 'Never'
+let g:LanguageClient_serverCommands = {}
+let g:LanguageClient_serverCommands.c = ['cquery']
+let g:LanguageClient_serverCommands.cpp = ['cquery']
+
+noremap <leader>rd :call LanguageClient#textDocument_definition()<cr>
+noremap <leader>rr :call LanguageClient#textDocument_references()<cr>
+noremap <leader>rv :call LanguageClient#textDocument_hover()<cr>
+
 call plug#end()
 
 filetype plugin indent on
+

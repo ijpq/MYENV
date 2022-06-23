@@ -9,3 +9,11 @@
 
 
 when multi user sys, you supposed to build any files with `--prefix=${HOME}/.install`, which install the binary and other files to you local user dir, such as cmake/gtags/vim...
+
+-----
+
+update@2022.6.23
+after a huge of config operations about vim index in cpp working RECENTLY, i found out:
+1. except LSP, gtas, ctags, those static syntax indexing is unreliably, (`get_reduce_workspace_in_bytes` not found in megbrain repo).
+so, i highly recommended using leaderf with rg to find all string about what you inspect; using leaderf with Function to show up function list;
+2. make you familiar with leaderf, nerdtree.
