@@ -212,12 +212,12 @@ let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 "普通模式下，sp前往上一个错误或警告，sn前往下一个错误或警告
-nmap sp <Plug>(ale_previous_wrap)
-nmap sn <Plug>(ale_next_wrap)
+" nmap sp <Plug>(ale_previous_wrap)
+" nmap sn <Plug>(ale_next_wrap)
 "<Leader>s触发/关闭语法检查
-nmap <Leader>s :ALEToggle<CR>
+" nmap <Leader>s :ALEToggle<CR>
 "<Leader>d查看错误或警告的详细信息
-nmap <Leader>d :ALEDetail<CR>
+" nmap <Leader>d :ALEDetail<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Git gutter (Git diff)
@@ -352,37 +352,42 @@ set signcolumn=yes
 """
 "leaderF
 """
+
+"keymap
 let g:Lf_ShortcutF = '<C-P>'
-" nmap <C-p> :LeaderfFunction!<CR>
-let g:Lf_WidnowPosition = "popup"
-let g:Lf_PreviewInPopup = 1
-let g:Lf_GtagsAutoGenerate = 0
-" find reference, acc to gtags
+let g:Lf_ShortcutB = '<C-B>'
 noremap <leader>fr :<C-U><C-R>=printf("Leaderf! gtags -r %s --auto-jump", expand("<cword>"))<CR><CR>
-" find defintion, acc to gtags
 noremap <leader>fd :<C-U><C-R>=printf("Leaderf! gtags -d %s --auto-jump", expand("<cword>"))<CR><CR>
-nmap <unique> <C-f> <Plug>LeaderfRgPrompt
+nmap <C-F> <Plug>LeaderfRgPrompt
+noremap <leader>ll :LeaderfFunction!<cr>
+" nmap <C-p> :LeaderfFunction!<CR>
+"
+" attributes
+let g:Lf_WindowPosition = 'bottom'
+let g:Lf_PreviewCode = 1
+" let g:Lf_PreviewHorizontalPosition = 'center'
+let g:Lf_GtagsAutoGenerate = 0
+let g:Lf_GtagsGutentags = 1
+let g:Lf_CacheDirectory = expand('~')
 let g:Lf_ShowDevIcons = 0
+let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
+let g:Lf_RootMarkers = ['.project', '.root', '.svn']
+let g:Lf_WorkingDirectoryMode = 'Ac'
+let g:Lf_WindowHeight = 0.30
+" let s:leaderfcache=expand('~/.cache')
+" if !isdirectory(s:leaderfcache)
+"    silent! call mkdir(s:leaderfcache, 'p')
+" endif
+" let g:Lf_CacheDirectory = s:leaderfcache
+let g:Lf_ShowRelativePath = 0
+let g:Lf_HideHelp = 0
+let g:Lf_StlColorscheme = 'powerline'
+let g:Lf_PreviewResult = {'Function':1, 'BufTag':0, 'File':0, 'Gtags':0}
 
 " let g:Lf_ShortcutF = '<c-p>'
 " noremap <c-n> :LeaderfMru<cr>
-noremap <leader>ll :LeaderfFunction!<cr>
 " noremap <m-n> :LeaderfBuffer<cr>
 " noremap <m-m> :LeaderfTag<cr>
-let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
-
-let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
-let g:Lf_WorkingDirectoryMode = 'Ac'
-let g:Lf_WindowHeight = 0.30
-let s:leaderfcache=expand('~/.vim/cache')
-if !isdirectory(s:leaderfcache)
-   silent! call mkdir(s:leaderfcache, 'p')
-endif
-let g:Lf_CacheDirectory = s:leaderfcache
-let g:Lf_ShowRelativePath = 0
-let g:Lf_HideHelp = 1
-let g:Lf_StlColorscheme = 'powerline'
-let g:Lf_PreviewResult = {'Function':0, 'BufTag':0}
 
 """
 "YCM
@@ -396,6 +401,7 @@ let g:ycm_complete_in_strings=1
 let g:ycm_key_invoke_completion = '<c-z>'
 let g:ycm_global_ycm_extra_conf = expand("~/.vim_runtime/my_plugins/YouCompleteMe/.ycm_extra_conf.py")
 let g:ycm_confirm_extra_conf = 0
+let g:ycm_filetype_blacklist = { 'leaderf':1}
 set completeopt=menu,menuone
 
 noremap <c-z> <NOP>
@@ -408,8 +414,8 @@ let g:ycm_semantic_triggers =  {
 """
 " vim preview
 """
-autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
-autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<cr>
+" autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
+" autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<cr>
 
 " noremap <m-u> :PreviewScroll -1<cr>
 " noremap <m-d> :PreviewScroll +1<cr>
