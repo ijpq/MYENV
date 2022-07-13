@@ -133,6 +133,11 @@ unset __conda_setup
 
 # BASE
 export PATH=/home/tangke/.install/bin:$PATH
+export PATH=/home/tangke/.install/neovim/bin:$PATH
+export PATH=/home/tangke/megvii3-workspace:$PATH
+
+
+
 
 # CUDA
 export NVIDIA_DIR=/usr/local/cuda-11.1-cudnn-8.0.4-trt-7.2.2.3-libs

@@ -35,7 +35,9 @@ Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
 Plug 'tomasiser/vim-code-dark'
 Plug 'skywind3000/gutentags_plus'
 Plug 'skywind3000/vim-preview'
-Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next' }
+" Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next' }
+Plug 'bagrat/vim-buffet'
+Plug 'jlanzarotta/bufexplorer'
 
 """"""""""""""""""""""""""""""
 " => bufExplorer plugin
@@ -354,8 +356,8 @@ set signcolumn=yes
 """
 
 "keymap
-let g:Lf_ShortcutF = '<C-P>'
-let g:Lf_ShortcutB = '<C-B>'
+let g:Lf_ShortcutF = '<C-I>'
+let g:Lf_ShortcutB = '<C-P>'
 noremap <leader>fr :<C-U><C-R>=printf("Leaderf! gtags -r %s --auto-jump", expand("<cword>"))<CR><CR>
 noremap <leader>fd :<C-U><C-R>=printf("Leaderf! gtags -d %s --auto-jump", expand("<cword>"))<CR><CR>
 nmap <C-F> <Plug>LeaderfRgPrompt
@@ -365,10 +367,12 @@ noremap <leader>ll :LeaderfFunction!<cr>
 " attributes
 let g:Lf_WindowPosition = 'bottom'
 let g:Lf_PreviewCode = 1
-" let g:Lf_PreviewHorizontalPosition = 'center'
+let g:Lf_PreviewHorizontalPosition = 'center'
+let g:Lf_PreviewInPopup = 1
+let g:Lf_RGHighlightInPreview = 1
 let g:Lf_GtagsAutoGenerate = 0
-let g:Lf_GtagsGutentags = 1
-let g:Lf_CacheDirectory = expand('~')
+let g:Lf_GtagsGutentags = 0
+let g:Lf_CacheDirectory = expand('~/.cache/.LfCache/')
 let g:Lf_ShowDevIcons = 0
 let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
 let g:Lf_RootMarkers = ['.project', '.root', '.svn']
@@ -402,6 +406,7 @@ let g:ycm_key_invoke_completion = '<c-z>'
 let g:ycm_global_ycm_extra_conf = expand("~/.vim_runtime/my_plugins/YouCompleteMe/.ycm_extra_conf.py")
 let g:ycm_confirm_extra_conf = 0
 let g:ycm_filetype_blacklist = { 'leaderf':1}
+let g:ycm_seed_identifiers_with_syntax = 1
 set completeopt=menu,menuone
 
 noremap <c-z> <NOP>
@@ -435,10 +440,14 @@ let g:LanguageClient_hoverPreview = 'Never'
 let g:LanguageClient_serverCommands = {}
 let g:LanguageClient_serverCommands.c = ['cquery']
 let g:LanguageClient_serverCommands.cpp = ['cquery']
-
 noremap <leader>rd :call LanguageClient#textDocument_definition()<cr>
 noremap <leader>rr :call LanguageClient#textDocument_references()<cr>
 noremap <leader>rv :call LanguageClient#textDocument_hover()<cr>
+
+"""
+" tab
+"""
+let g:buffet_show_index = 1
 
 call plug#end()
 
