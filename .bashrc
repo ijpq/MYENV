@@ -174,3 +174,5 @@ git config --global alias.logl 'log --oneline'
 
 export GTAGSLABEL="native"
 export GTAGSCONF="/home/tangke/.install/share/gtags/gtags.conf"
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/tangke/.install/gmp/lib
+export PATH=/home/tangke/.install/gdb/bin:$PATH

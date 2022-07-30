@@ -17,3 +17,6 @@ after a huge of config operations about vim index in cpp working RECENTLY, i fou
 1. except LSP, gtas, ctags, those static syntax indexing is unreliably, (`get_reduce_workspace_in_bytes` not found in megbrain repo).
 so, i highly recommended using leaderf with rg to find all string about what you inspect; using leaderf with Function to show up function list;
 2. make you familiar with leaderf, nerdtree.
+
+update@2022.7.30
+1. install gdb from source via same path `configure --prefix` -> `make` -> `make install`, but it is required that install GMP in advance.
