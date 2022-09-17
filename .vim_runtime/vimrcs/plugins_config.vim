@@ -16,28 +16,31 @@
 
 call plug#begin('~/.vim_runtime/my_plugins')
 Plug 'https://github.com/jiangmiao/auto-pairs.git'
-Plug 'https://github.com/mileszs/ack.vim.git'
-Plug 'https://github.com/nathanaelkane/vim-indent-guides.git'
+" Plug 'https://github.com/mileszs/ack.vim.git'
+" Plug 'https://github.com/nathanaelkane/vim-indent-guides.git'
 Plug 'https://github.com/itchyny/lightline.vim.git'
-Plug 'https://github.com/skywind3000/asyncrun.vim.git'
+" Plug 'https://github.com/skywind3000/asyncrun.vim.git'
 Plug 'https://github.com/ludovicchabant/vim-gutentags.git'
-Plug 'https://github.com/dense-analysis/ale.git'
+" Plug 'https://github.com/dense-analysis/ale.git'
 Plug 'https://github.com/octol/vim-cpp-enhanced-highlight.git'
-Plug 'https://github.com/vim-python/python-syntax.git'
+" Plug 'https://github.com/vim-python/python-syntax.git'
 Plug 'https://github.com/ycm-core/YouCompleteMe.git'
 Plug 'https://github.com/preservim/nerdtree.git', {'on':'NERDTreeToggle'}
 Plug 'ojroques/vim-oscyank'
-Plug 'maximbaz/lightline-ale'
+" Plug 'maximbaz/lightline-ale'
 Plug 'jabirali/vim-tmux-yank'
 Plug 'https://github.com/itchyny/vim-gitbranch.git'
-Plug 'https://github.com/mhinz/vim-signify.git'
+" Plug 'https://github.com/mhinz/vim-signify.git'
 Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
 Plug 'tomasiser/vim-code-dark'
 Plug 'skywind3000/gutentags_plus'
-Plug 'skywind3000/vim-preview'
+" Plug 'https://github.com/kshenoy/vim-signature.git'
+Plug 'https://github.com/airblade/vim-gitgutter.git'
+Plug 'ryanoasis/vim-devicons'
+" Plug 'skywind3000/vim-preview'
 " Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next' }
-Plug 'bagrat/vim-buffet'
-Plug 'jlanzarotta/bufexplorer'
+" Plug 'bagrat/vim-buffet'
+" Plug 'jlanzarotta/bufexplorer'
 
 """"""""""""""""""""""""""""""
 " => bufExplorer plugin
@@ -202,17 +205,17 @@ let g:ale_linters = {
 " let g:ale_lint_on_enter = 0
 
 "始终开启标志列
-let g:ale_sign_column_always = 1
-let g:ale_set_highlights = 0
-"自定义error和warning图标
-let g:ale_sign_error = '✗'
-let g:ale_sign_warning = '⚡'
-"在vim自带的状态栏中整合ale
-let g:ale_statusline_format = ['✗ %d', '⚡ %d', '✔ OK']
-"显示Linter名称,出错或警告等相关信息
-let g:ale_echo_msg_error_str = 'E'
-let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+" let g:ale_sign_column_always = 1
+" let g:ale_set_highlights = 0
+" "自定义error和warning图标
+" let g:ale_sign_error = '✗'
+" let g:ale_sign_warning = '⚡'
+" "在vim自带的状态栏中整合ale
+" let g:ale_statusline_format = ['✗ %d', '⚡ %d', '✔ OK']
+" "显示Linter名称,出错或警告等相关信息
+" let g:ale_echo_msg_error_str = 'E'
+" let g:ale_echo_msg_warning_str = 'W'
+" let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 "普通模式下，sp前往上一个错误或警告，sn前往下一个错误或警告
 " nmap sp <Plug>(ale_previous_wrap)
 " nmap sn <Plug>(ale_next_wrap)
@@ -256,21 +259,21 @@ let g:indent_guides_enable_on_vim_startup = 1
 """
 "ale
 """"
-let g:ale_linters_explicit = 1
-" let g:ale_completion_delay = 1
-let g:ale_echo_delay = 20
-let g:ale_lint_delay = 500
-let g:ale_echo_msg_format = '[%linter%] %code: %%s'
-let g:ale_lint_on_text_changed = 'normal'
-let g:ale_lint_on_insert_leave = 1
-let g:airline#extensions#ale#enabled = 1
-let g:ale_sign_column_always = 1
-let g:ale_c_gcc_options = '-Wall -O2 -std=c99'
-let g:ale_cpp_gcc_options = '-Wall -O2 -std=c++14'
-let g:ale_c_cppcheck_options = ''
-let g:ale_cpp_cppcheck_options = ''
-let g:ale_sign_error = '✗'
-let g:ale_sign_warning = '⚡'
+" let g:ale_linters_explicit = 1
+" " let g:ale_completion_delay = 1
+" let g:ale_echo_delay = 20
+" let g:ale_lint_delay = 500
+" let g:ale_echo_msg_format = '[%linter%] %code: %%s'
+" let g:ale_lint_on_text_changed = 'normal'
+" let g:ale_lint_on_insert_leave = 1
+" let g:airline#extensions#ale#enabled = 1
+" let g:ale_sign_column_always = 1
+" let g:ale_c_gcc_options = '-Wall -O2 -std=c99'
+" let g:ale_cpp_gcc_options = '-Wall -O2 -std=c++14'
+" let g:ale_c_cppcheck_options = ''
+" let g:ale_cpp_cppcheck_options = ''
+" let g:ale_sign_error = '✗'
+" let g:ale_sign_warning = '⚡'
 
 """
 "gutentags
@@ -347,9 +350,20 @@ let $GTAGSCONF = '/home/tangke/.install/share/gtags/gtags.conf'
 let g:gutentags_trace=0
 let g:gutentags_plus_switch=1
 """
-"signify
+" gitgutter
 """
 set signcolumn=yes
+let g:gitgutter_sign_added = '++'
+let g:gitgutter_sign_modified = '~~'
+let g:gitgutter_sign_removed = '--'
+let g:gitgutter_sign_removed_first_line = '^^'
+let g:gitgutter_sign_removed_above_and_below = '{'
+let g:gitgutter_sign_modified_removed = 'ww'
+highlight GitGutterAdd ctermfg=green
+highlight GitGutterChange ctermfg=blue
+highlight GitGutterDelete ctermfg=red
+let g:gitgutter_max_signs=-1
+let g:gitgutter_highlight_lines=1
 
 """
 "leaderF
@@ -372,17 +386,16 @@ let g:Lf_PreviewInPopup = 1
 let g:Lf_RGHighlightInPreview = 1
 let g:Lf_GtagsAutoGenerate = 0
 let g:Lf_GtagsGutentags = 0
-let g:Lf_CacheDirectory = expand('~/.cache/.LfCache/')
+let s:leaderfcache=expand('~/.cache/.LfCache/')
+if !isdirectory(s:leaderfcache)
+   silent! call mkdir(s:leaderfcache, 'p')
+endif
+let g:Lf_CacheDirectory = s:leaderfcache
 let g:Lf_ShowDevIcons = 0
 let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
 let g:Lf_RootMarkers = ['.project', '.root', '.svn']
 let g:Lf_WorkingDirectoryMode = 'Ac'
 let g:Lf_WindowHeight = 0.30
-" let s:leaderfcache=expand('~/.cache')
-" if !isdirectory(s:leaderfcache)
-"    silent! call mkdir(s:leaderfcache, 'p')
-" endif
-" let g:Lf_CacheDirectory = s:leaderfcache
 let g:Lf_ShowRelativePath = 0
 let g:Lf_HideHelp = 0
 let g:Lf_StlColorscheme = 'powerline'
@@ -448,6 +461,12 @@ noremap <leader>rv :call LanguageClient#textDocument_hover()<cr>
 " tab
 """
 let g:buffet_show_index = 1
+
+
+"""
+" vim-devicons
+"""
+set encoding=UTF-8
 
 call plug#end()
 

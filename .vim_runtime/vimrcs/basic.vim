@@ -386,6 +386,7 @@ endfunction
 :inoremap <C-c> <C-[>
 :set number
 :set rnu
+:set mouse=n
 " map <M-h>: gT<CR> 
 " map <M-l>: gt<CR> 
 
