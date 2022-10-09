@@ -155,13 +155,13 @@ export CUDA_CACHE_PATH=/data/.cuda_cache
 export GTAGSFORCECPP=1
 
 #python
-export PYTHONPATH=${HOME}/MegBrain/build/imperative/python:${PYTHONPATH}
+export PYTHONPATH=${HOME}/MegBrain/imperative/python:${PYTHONPATH}
 
 # alias
 alias vi="vim"
 
 # misc
-export TESTENV="tangke"
+export TESTENV="if this message echoed, sudo derive tangke user env successfully"
 
 #git
 git config --global alias.co checkout
@@ -176,3 +176,15 @@ export GTAGSLABEL="native"
 export GTAGSCONF="/home/tangke/.install/share/gtags/gtags.conf"
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/tangke/.install/gmp/lib
 export PATH=/home/tangke/.install/gdb/bin:$PATH
+
+# cuda gdb
+export TMPDIR=/home/tangke/.cudagdb_tmp
+export CUDA_COREDUMP_FILE="/home/$USER/.cudagdb_coredump/newName.%h.%p"
+export CUDA_ENABLE_COREDUMP_ON_EXCEPTION=1
+
+#oss
+alias oss="aws --endpoint-url=http://oss.i.brainpp.cn s3"
+
+#llvm
+export LLVM_ROOT=/home/tangke/llvm-project
+export PATH=$PATH:/home/tangke/llvm-project/build/bin
