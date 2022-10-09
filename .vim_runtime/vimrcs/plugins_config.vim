@@ -24,7 +24,7 @@ Plug 'https://github.com/ludovicchabant/vim-gutentags.git'
 " Plug 'https://github.com/dense-analysis/ale.git'
 Plug 'https://github.com/octol/vim-cpp-enhanced-highlight.git'
 " Plug 'https://github.com/vim-python/python-syntax.git'
-Plug 'https://github.com/ycm-core/YouCompleteMe.git'
+" Plug 'https://github.com/ycm-core/YouCompleteMe.git'
 Plug 'https://github.com/preservim/nerdtree.git', {'on':'NERDTreeToggle'}
 Plug 'ojroques/vim-oscyank'
 " Plug 'maximbaz/lightline-ale'
@@ -38,10 +38,12 @@ Plug 'skywind3000/gutentags_plus'
 Plug 'https://github.com/airblade/vim-gitgutter.git'
 Plug 'ryanoasis/vim-devicons'
 " Plug 'skywind3000/vim-preview'
-" Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next' }
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Plug 'bagrat/vim-buffet'
 " Plug 'jlanzarotta/bufexplorer'
-
+Plug 'https://github.com/tpope/vim-fugitive.git'
+Plug 'wakatime/vim-wakatime'
+"
 """"""""""""""""""""""""""""""
 " => bufExplorer plugin
 """"""""""""""""""""""""""""""
@@ -409,25 +411,25 @@ let g:Lf_PreviewResult = {'Function':1, 'BufTag':0, 'File':0, 'Gtags':0}
 """
 "YCM
 """"
-let g:ycm_add_preview_to_completeopt = 0
-let g:ycm_show_diagnostics_ui = 0
-let g:ycm_server_log_level = 'info'
-let g:ycm_min_num_identifier_candidate_chars = 2
-let g:ycm_collect_identifiers_from_comments_and_strings = 1
-let g:ycm_complete_in_strings=1
-let g:ycm_key_invoke_completion = '<c-z>'
-let g:ycm_global_ycm_extra_conf = expand("~/.vim_runtime/my_plugins/YouCompleteMe/.ycm_extra_conf.py")
-let g:ycm_confirm_extra_conf = 0
-let g:ycm_filetype_blacklist = { 'leaderf':1}
-let g:ycm_seed_identifiers_with_syntax = 1
-set completeopt=menu,menuone
-
-noremap <c-z> <NOP>
-
-let g:ycm_semantic_triggers =  {
-           \ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
-           \ 'cs,lua,javascript': ['re!\w{2}'],
-           \ }
+" let g:ycm_add_preview_to_completeopt = 0
+" let g:ycm_show_diagnostics_ui = 0
+" let g:ycm_server_log_level = 'info'
+" let g:ycm_min_num_identifier_candidate_chars = 2
+" let g:ycm_collect_identifiers_from_comments_and_strings = 1
+" let g:ycm_complete_in_strings=1
+" let g:ycm_key_invoke_completion = '<c-z>'
+" let g:ycm_global_ycm_extra_conf = expand("~/.vim_runtime/my_plugins/YouCompleteMe/.ycm_extra_conf.py")
+" let g:ycm_confirm_extra_conf = 0
+" let g:ycm_filetype_blacklist = { 'leaderf':1}
+" let g:ycm_seed_identifiers_with_syntax = 1
+" set completeopt=menu,menuone
+" 
+" noremap <c-z> <NOP>
+" 
+" let g:ycm_semantic_triggers =  {
+"            \ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
+"            \ 'cs,lua,javascript': ['re!\w{2}'],
+"            \ }
 
 """
 " vim preview
@@ -440,28 +442,72 @@ let g:ycm_semantic_triggers =  {
 " inoremap <m-u> <c-\><c-o>:PreviewScroll -1<cr>
 " inoremap <m-d> <c-\><c-o>:PreviewScroll +1<cr>
 
-"""""
-" LCN
-"
-"""""
-let g:LanguageClient_loadSettings = 1
-let g:LanguageClient_diagnosticsEnable = 0
-let g:LanguageClient_settingsPath = expand('~/.vim/languageclient.json')
-let g:LanguageClient_selectionUI = 'quickfix'
-let g:LanguageClient_diagnosticsList = v:null
-let g:LanguageClient_hoverPreview = 'Never'
-let g:LanguageClient_serverCommands = {}
-let g:LanguageClient_serverCommands.c = ['cquery']
-let g:LanguageClient_serverCommands.cpp = ['cquery']
-noremap <leader>rd :call LanguageClient#textDocument_definition()<cr>
-noremap <leader>rr :call LanguageClient#textDocument_references()<cr>
-noremap <leader>rv :call LanguageClient#textDocument_hover()<cr>
+"""
+" COC
+"""
+" Some servers have issues with backup files, see #649.
+" set nobackup
+" set nowritebackup
+" 
+let g:coc_node_path = "~/node-v16.17.1-linux-x64/bin/node"
+" " " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" " " delays and poor user experience.
+set updatetime=300
+" " 
+" " " Always show the signcolumn, otherwise it would shift the text each time
+" " " diagnostics appear/become resolved.
+set signcolumn=yes
+" " 
+" " " GoTo code navigation.
+nmap <silent> rd <Plug>(coc-definition)
+nmap <silent> rt <Plug>(coc-type-definition)
+nmap <silent> ri <Plug>(coc-implementation)
+nmap <silent> rr <Plug>(coc-references)
+" 
+" " Mappings for CoCList
+" " Show all diagnostics.
+" nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+" " Manage extensions.
+" nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+" " Show commands.
+" nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+" " Find symbol of current document.
+" nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+" " Search workspace symbols.
+" nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
+" " Do default action for next item.
+" nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
+" " Do default action for previous item.
+" nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
+" " Resume latest coc list.
+" nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice.
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
 
 """
 " tab
 """
 let g:buffet_show_index = 1
 
+"""
+" vim-gitgutter
+"""
+nmap <leader>bl :Git blame<cr>
+let g:fugitive_dynamic_colors = 0
 
 """
 " vim-devicons
