@@ -1,7 +1,24 @@
-.tmux.conf is TMUX config file
+|file|note|location|cmd|
+|---|---|---|---|
+|.tmux.conf| TMUX configuration file| `/home/$USER/`| install tmux first|
+|.bashrc | env file| `/home/$USER/`|read in detail|
+
+|require build from source| how to get src|note|prerequirement|
+|---|---|---|---|
+|cmake|https://github.com/Kitware/CMake/releases| untar it, set prefix to configure and make + make install||
+|gmp|https://gmplib.org/#DOWNLOAD|see readme||
+|gdb|https://www.sourceware.org/gdb/download/|untar it, set prefix to configure and make + make install|gmp|
+|gtags(global)|https://www.gnu.org/software/global/download.html|see readme, gtags used by leaderf, see vim config||
+|vim9|https://github.com/vim/vim/tags|configure setting may more complex, please check python3+ enable after make install|python|
+
+|required by vim|src|note|
+|---|---|---|
+|fonts for nerdtree|https://github.com/ryanoasis/nerd-fonts|clone this repo to local PC, then install fonts via scripts(Option 3: Install Script)|
+|wakatime|https://github.com/wakatime/vim-wakatime|using command to input api key|
+|others||see doc in vim plugin repo carefully|
 
 
-.bashrc is a example env variables setting
+-----DEPRECATED-----
 
 `youcompleteme` vim plugins need extra setup. before that you need a vim8.2 build from source and so on, some info refer to .bashrc when multi user sys.
 

@@ -131,13 +131,11 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+
 # BASE
 export PATH=/home/tangke/.install/bin:$PATH
 export PATH=/home/tangke/.install/neovim/bin:$PATH
 export PATH=/home/tangke/megvii3-workspace:$PATH
-
-
-
 
 # CUDA
 export NVIDIA_DIR=/usr/local/cuda-11.1-cudnn-8.0.4-trt-7.2.2.3-libs
@@ -153,6 +151,8 @@ export CUDA_CACHE_PATH=/data/.cuda_cache
 
 #gtags
 export GTAGSFORCECPP=1
+export GTAGSLABEL="native"
+export GTAGSCONF="/home/tangke/.install/share/gtags/gtags.conf"
 
 #python
 export PYTHONPATH=${HOME}/MegBrain/imperative/python:${PYTHONPATH}
@@ -172,8 +172,7 @@ git config --global alias.unstage 'reset HEAD --'
 git config --global alias.last 'log -1 HEAD'
 git config --global alias.logl 'log --oneline'
 
-export GTAGSLABEL="native"
-export GTAGSCONF="/home/tangke/.install/share/gtags/gtags.conf"
+#gdb12
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/tangke/.install/gmp/lib
 export PATH=/home/tangke/.install/gdb/bin:$PATH
 
