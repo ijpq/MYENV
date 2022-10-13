@@ -10,6 +10,7 @@
 |gdb|https://www.sourceware.org/gdb/download/|untar it, set prefix to configure and make + make install|gmp|
 |gtags(global)|https://www.gnu.org/software/global/download.html|see readme, gtags used by leaderf, see vim config||
 |vim9|https://github.com/vim/vim/tags|configure setting may more complex, please check python3+ enable after make install|python|
+|tmux plugin manager|https://github.com/tmux-plugins/tpm#installation|||
 
 |required by vim|src|note|
 |---|---|---|
