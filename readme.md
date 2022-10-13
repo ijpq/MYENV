@@ -1,6 +1,6 @@
 |file|note|location|cmd|
 |---|---|---|---|
-|.tmux.conf| TMUX configuration file| `/home/$USER/`| install tmux first|
+|.tmux.conf| TMUX configuration file| `/home/$USER/`| install tmux first, restore session after reboot: https://andrewjamesjohnson.com/restoring-tmux-sessions/|
 |.bashrc | env file| `/home/$USER/`|read in detail|
 
 |require build from source| how to get src|note|prerequirement|
