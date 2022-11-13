@@ -20,7 +20,7 @@ Plug 'https://github.com/jiangmiao/auto-pairs.git'
 " Plug 'https://github.com/nathanaelkane/vim-indent-guides.git'
 Plug 'https://github.com/itchyny/lightline.vim.git'
 " Plug 'https://github.com/skywind3000/asyncrun.vim.git'
-Plug 'https://github.com/ludovicchabant/vim-gutentags.git'
+" Plug 'https://github.com/ludovicchabant/vim-gutentags.git'
 " Plug 'https://github.com/dense-analysis/ale.git'
 Plug 'https://github.com/octol/vim-cpp-enhanced-highlight.git'
 " Plug 'https://github.com/vim-python/python-syntax.git'
@@ -33,7 +33,7 @@ Plug 'https://github.com/itchyny/vim-gitbranch.git'
 " Plug 'https://github.com/mhinz/vim-signify.git'
 Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
 Plug 'tomasiser/vim-code-dark'
-Plug 'skywind3000/gutentags_plus'
+" Plug 'skywind3000/gutentags_plus'
 " Plug 'https://github.com/kshenoy/vim-signature.git'
 Plug 'https://github.com/airblade/vim-gitgutter.git'
 Plug 'ryanoasis/vim-devicons'
@@ -277,80 +277,57 @@ let g:indent_guides_enable_on_vim_startup = 1
 " let g:ale_sign_error = '✗'
 " let g:ale_sign_warning = '⚡'
 
-"""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "gutentags
-"""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ctags related param
 " set tags=./.tags;,.tags
 
-let g:gutentags_define_advanced_commands = 1
-" gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
-let g:gutentags_project_root = ['.root', '.svn', '.hg', '.project']
-
-" 所生成的数据文件的名称
-let g:gutentags_ctags_tagfile = '.tags'
-
-" 将自动生成的 tags 文件全部放入 ~/.cache/tags 目录中，避免污染工程目录
-let s:vim_tags = expand("~/.cache/tags")
-let g:gutentags_cache_dir = s:vim_tags
-
-"配置 ctags 的参数
-let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
-let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
-let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
-
-let g:gutentags_modules = []
-
-" ctags got some ERROR, so there comment it.
-" if executable('ctags')
-"     let g:gutentags_modules += ['ctags']
+" let g:gutentags_define_advanced_commands = 1
+" " gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
+" let g:gutentags_project_root = ['.root', '.svn', '.hg', '.project']
+" 
+" " 所生成的数据文件的名称
+" let g:gutentags_ctags_tagfile = '.tags'
+" 
+" " 将自动生成的 tags 文件全部放入 ~/.cache/tags 目录中，避免污染工程目录
+" let s:vim_tags = expand("~/.cache/tags")
+" let g:gutentags_cache_dir = s:vim_tags
+" 
+" "配置 ctags 的参数
+" let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
+" let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
+" let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+" 
+" let g:gutentags_modules = []
+" 
+" " ctags got some ERROR, so there comment it.
+" " if executable('ctags')
+" "     let g:gutentags_modules += ['ctags']
+" " endif
+" "
+" if executable('gtags-cscope') && executable('gtags')
+"     let g:gutentags_modules += ['gtags_cscope']
 " endif
-"
-if executable('gtags-cscope') && executable('gtags')
-    let g:gutentags_modules += ['gtags_cscope']
-endif
-let g:gutentags_ctags_extra_args = []
-let g:gutentags_ctags_extra_args += ['--extras=+q', '--output-format=e-ctags']
-let g:gutentags_auto_add_gtags_cscope = 1
-
-" let g:gutentags_ctags_exclude = ["*/MegBrain/third_party/*"]
-
-" 检测 ~/.cache/tags 不存在就新建
-if !isdirectory(s:vim_tags)
-   silent! call mkdir(s:vim_tags, 'p')
-endif
-
-" if has("cscope")
-"     if executable('gtags-cscope') && executable('gtags')
-"         "禁用原GscopeFind按键映射
-"         let g:gutentags_plus_nomap = 1
-"         "Find this C symbol 查找C语言符号，即查找函数名、宏、枚举值等出现的地方
-"         nmap <C-\>s :GscopeFind s <C-R>=expand("<cword>")<CR><CR>
-"         "Find this difinition 查找函数、宏、枚举等定义的位置，类似ctags所提供的功能
-"         nmap <C-\>g :GscopeFind g <C-R>=expand("<cword>")<CR><CR>
-"         "Find functions called by this function 查找本函数调用的函数
-"         nmap <C-\>d :GscopeFind d <C-R>=expand("<cword>")<CR><CR>
-"         "Find functions calling this function 查找调用本函数的函数
-"         nmap <C-\>c :GscopeFind c <C-R>=expand("<cword>")<CR><CR>
-"         "Find this text string 查找指定的字符串
-"         nmap <C-\>t :GscopeFind t <C-R>=expand("<cword>")<CR><CR>
-"         "Find this egrep pattern 查找egrep模式，相当于egrep功能，但查找速度快多了
-"         nmap <C-\>e :GscopeFind e <C-R>=expand("<cword>")<CR><CR>
-"         "Find this file 查找并打开文件，类似vim的能
-"         nmap <C-\>f :GscopeFind f <C-R>=expand("<cfile>")<CR><CR>
-"         "Find files #including this file 查找包含本文件的文件
-"         nmap <C-\>i :GscopeFind i ^<C-R>=expand("<cfile>")<CR>$<CR>
-"     endif
+" let g:gutentags_ctags_extra_args = []
+" let g:gutentags_ctags_extra_args += ['--extras=+q', '--output-format=e-ctags']
+" let g:gutentags_auto_add_gtags_cscope = 1
+" 
+" " let g:gutentags_ctags_exclude = ["*/MegBrain/third_party/*"]
+" 
+" " 检测 ~/.cache/tags 不存在就新建
+" if !isdirectory(s:vim_tags)
+"    silent! call mkdir(s:vim_tags, 'p')
 " endif
-
-let $GTAGSLABEL = 'native'
-let $GTAGSCONF = '/home/tangke/.install/share/gtags/gtags.conf'
-
-"""
-" gutentags-plus
-"""
-let g:gutentags_trace=0
-let g:gutentags_plus_switch=1
+" 
+" let $GTAGSLABEL = 'native'
+" let $GTAGSCONF = '/home/tangke/.install/share/gtags/gtags.conf'
+" 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" " gutentags-plus
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" let g:gutentags_trace=0
+" let g:gutentags_plus_switch=1
 """
 " gitgutter
 """
